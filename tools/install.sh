@@ -328,7 +328,7 @@ install_dotfiles () {
 
   local overwrite_all=false backup_all=false skip_all=false
 
-  for src in $(find -H "install" -maxdepth 2 -name '*.symlink' -not -path '*.git*')
+  for src in $(find -H "dotfiles" -maxdepth 2 -name '*.symlink' -not -path '*.git*')
   do
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$ZSH/$src" "$dst"
@@ -337,13 +337,13 @@ install_dotfiles () {
 
 install_brew () {
   echo "installing brew and dependencies"
-  install/homebrew/install.sh 2>&1
+  dotfiles/homebrew/install.sh 2>&1
 }
 
 setup_mac_defaults () {
   echo "installing macos defaults"
 
-  install/macos/set-defaults.sh 2>&1
+  dotfiles/macos/set-defaults.sh 2>&1
 }
 
 main() {
