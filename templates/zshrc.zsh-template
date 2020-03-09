@@ -68,7 +68,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(battery brew cask coffee command-not-found common-aliases git git-extras github jenv jira kitchen mvn  osx sublime sudo textmate vagrant vagrant-prompt vi-mode web-search)
+plugins=(battery brew colored-man-pages command-not-found common-aliases git git-extras github jenv jira kitchen mvn  osx sublime sudo textmate vagrant vagrant-prompt vi-mode web-search)
 
 source $ZSH/oh-my-zsh.sh
 
