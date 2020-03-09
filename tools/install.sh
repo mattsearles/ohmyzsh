@@ -35,7 +35,7 @@ set -e
 
 # Default settings
 ZSH=${ZSH:-~/.oh-my-zsh}
-REPO=${REPO:-ohmyzsh/ohmyzsh}
+REPO=${REPO:-mattsearles/ohmyzsh}
 REMOTE=${REMOTE:-https://github.com/${REPO}.git}
 BRANCH=${BRANCH:-master}
 
@@ -223,6 +223,129 @@ setup_shell() {
 	echo
 }
 
+setup_gitconfig () {
+  if ! [ -f git/gitconfig.local.symlink ]
+  then
+    info 'setup gitconfig'
+
+    git_credential='cache'
+    if [ "$(uname -s)" == "Darwin" ]
+    then
+      git_credential='osxkeychain'
+    fi
+
+    echo ' - What is your github author name?'
+    read -e git_authorname
+    echo ' - What is your github author email?'
+    read -e git_authoremail
+
+    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" git/gitconfig.local.symlink.example > git/gitconfig.local.symlink
+
+    echo 'gitconfig'
+  fi
+}
+
+
+
+link_file () {
+  local src=$1 dst=$2
+
+  local overwrite= backup= skip=
+  local action=
+
+  if [ -f "$dst" -o -d "$dst" -o -L "$dst" ]
+  then
+
+    if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]
+    then
+
+      local currentSrc="$(readlink $dst)"
+
+      if [ "$currentSrc" == "$src" ]
+      then
+
+        skip=true;
+
+      else
+
+        echo "File already exists: $dst ($(basename "$src")), what do you want to do?\n\
+        [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+        read -n 1 action
+
+        case "$action" in
+          o )
+            overwrite=true;;
+          O )
+            overwrite_all=true;;
+          b )
+            backup=true;;
+          B )
+            backup_all=true;;
+          s )
+            skip=true;;
+          S )
+            skip_all=true;;
+          * )
+            ;;
+        esac
+
+        echo ""
+      fi
+
+    fi
+
+    overwrite=${overwrite:-$overwrite_all}
+    backup=${backup:-$backup_all}
+    skip=${skip:-$skip_all}
+
+    if [ "$overwrite" == "true" ]
+    then
+      rm -rf "$dst"
+      echo "removed $dst"
+    fi
+
+    if [ "$backup" == "true" ]
+    then
+      mv "$dst" "${dst}.backup"
+      echo "moved $dst to ${dst}.backup"
+    fi
+
+    if [ "$skip" == "true" ]
+    then
+      echo "skipped $src"
+    fi
+  fi
+
+  if [ "$skip" != "true" ]  # "false" or empty
+  then
+    ln -s "$1" "$2"
+    echo "linked $1 to $2"
+  fi
+}
+
+install_dotfiles () {
+  echo "installing dotfiles"
+
+  local overwrite_all=false backup_all=false skip_all=false
+
+  for src in $(find -H "install" -maxdepth 2 -name '*.symlink' -not -path '*.git*')
+  do
+    dst="$HOME/.$(basename "${src%.*}")"
+    link_file "$ZSH/$src" "$dst"
+  done
+}
+
+install_brew () {
+  echo "installing brew and dependencies"
+  install/homebrew/install.sh 2>&1
+}
+
+setup_mac_defaults () {
+  echo "installing macos defaults"
+
+  install/macos/set-defaults.sh 2>&1
+}
+
 main() {
 	# Run as unattended if stdin is closed
 	if [ ! -t 0 ]; then
@@ -283,7 +406,14 @@ main() {
 		exit
 	fi
 
-	exec zsh -l
 }
 
 main "$@"
+
+setup_gitconfig
+install_dotfiles
+install_brew
+setup_mac_defaults
+
+echo "Completed setup"
+exec zsh -l
