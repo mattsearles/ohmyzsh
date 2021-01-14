@@ -1,1 +1,1 @@
-export PATH="~/.oh-my-zsh/dotfiles/functions:$PATH"
+export PATH="${HOME}/.oh-my-zsh/dotfiles/functions:$PATH"
