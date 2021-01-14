@@ -24,10 +24,46 @@ fi
 brew update
 brew upgrade
 
-brew install wget vim jenv grep openssh screen php ack git ssh-copy-id tree gcc
+formulas=(
+ack
+automake
+certbot
+clamav
+e2fsprogs
+gcc
+gh
+git
+gnu-sed
+grep
+jenv
+libevent
+libidn
+libimobiledevice
+libksba
+liquibase
+maven@3.2
+mkcert
+nss
+openssh
+p7zip
+petere/postgresql/postgresql-common
+petere/postgresql/postgresql@13
+php
+python@3.8
+qt
+rbenv
+screen
+ssh-copy-id
+telnet
+tomcat@8
+tree
+vim
+wget
+z
+zlib
+zsh-syntax-highlighting)
 
-#ruby prerequisite
-brew install autoconf automake gdbm gmp libksba libtool libyaml openssl pkg-config readline
+brew install ${formulas[@]}
 
 #ask for sudo password upfront
 sudo -v
@@ -35,30 +71,39 @@ sudo -v
 # Apps
 brew tap adoptopenjdk/openjdk
 apps=(
-	adoptopenjdk8
-	aerial
-	alfred
-	appcleaner
-	atom
-	avast-security
-	caffeine
-	disk-inventory-x
-	firefox
-	google-chrome
-	handbrake
-	iterm2
-	opera
-	skype
-	spectacle
-	slack
-	springtoolsuite
-	sublime-text
-	textmate
-	vlc
-	vagrant
-	vagrant-manager
-	virtualbox
-	whatsapp
+adoptopenjdk8
+aerial
+alfred
+appcleaner
+atom
+avast-security
+caffeine
+disk-inventory-x
+firefox
+google-chrome
+gitup
+handbrake
+iterm2
+microsoft-word
+microsoft-excel
+microsoft-powerpoint
+nordvpn
+opera
+pgadmin4
+skype
+spectacle
+slack
+springtoolsuite
+sublime-text
+textmate
+tibco-jaspersoft-studio
+vlc
+vagrant
+vagrant-manager
+virtualbox
+virtualbox-extension-pack
+whatsapp
+zoomus
 )
 
 echo "installing apps..."
