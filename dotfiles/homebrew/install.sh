@@ -45,7 +45,6 @@ apps=(
 	disk-inventory-x
 	firefox
 	google-chrome
-	gitup
 	handbrake
 	iterm2
 	opera
