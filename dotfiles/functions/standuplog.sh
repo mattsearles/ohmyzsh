@@ -8,4 +8,4 @@ function yesterworkday()
     fi
 }
 git log --pretty=format:"%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold magenta)<a:%an> %C(blue) <c:%cn> %Creset%n%b"  --no-merges  --all --date=relative --since="$(yesterworkday) 09:15" --committer="$USER" $@ \
-| sed -f $ZSH/custom/plugins/git_log.sed
+| sed -f $ZSH/dotfiles/functions/git_log.sed
