@@ -239,7 +239,7 @@ setup_gitconfig () {
     echo ' - What is your github author email?'
     read -e git_authoremail
 
-    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" dotfiles/git/gitconfig.local.symlink.example > dotfiles/git/gitconfig.local.symlink
+    sed -e "s/AUTHORNAME/$git_authorname/g" -e "s/AUTHOREMAIL/$git_authoremail/g" -e "s/GIT_CREDENTIAL_HELPER/$git_credential/g" $ZSH/dotfiles/git/gitconfig.local.symlink.example > $ZSH/dotfiles/git/gitconfig.local.symlink
 
     echo 'gitconfig'
   fi
@@ -328,7 +328,7 @@ install_dotfiles () {
 
   local overwrite_all=false backup_all=false skip_all=false
 
-  for src in $(find -H "dotfiles" -maxdepth 2 -name '*.symlink' -not -path '*.git*')
+  for src in $(find -H "../dotfiles" -maxdepth 2 -name '*.symlink' -not -path '*.git*')
   do
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$ZSH/$src" "$dst"
@@ -337,13 +337,13 @@ install_dotfiles () {
 
 install_brew () {
   echo "installing brew and dependencies"
-  dotfiles/homebrew/install.sh 2>&1
+  $ZSH/dotfiles/homebrew/install.sh 2>&1
 }
 
 setup_mac_defaults () {
   echo "installing macos defaults"
 
-  dotfiles/macos/set-defaults.sh 2>&1
+  $ZSH/dotfiles/macos/set-defaults.sh 2>&1
 }
 
 main() {
