@@ -61,8 +61,7 @@ tree
 vim
 wget
 z
-zlib
-zsh-syntax-highlighting)
+zlib)
 
 brew install ${formulas[@]}
 
@@ -77,12 +76,10 @@ aerial
 alfred
 appcleaner
 atom
-avast-security
 caffeine
 disk-inventory-x
 firefox
 google-chrome
-gitup
 handbrake
 iterm2
 microsoft-word
