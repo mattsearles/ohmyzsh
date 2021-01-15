@@ -46,6 +46,7 @@ mkcert
 nss
 openssh
 p7zip
+perl
 petere/postgresql/postgresql-common
 petere/postgresql/postgresql@13
 php
@@ -107,7 +108,7 @@ zoomus
 )
 
 echo "installing apps..."
-brew cask install ${apps[@]}
+brew install --cask ${apps[@]}
 
 brew tap homebrew/cask-fonts                    # you only have to do this once!
 
@@ -120,7 +121,7 @@ fonts=(
 
 # install fonts
 echo "installing fonts..."
-brew cask install ${fonts[@]}
+brew install --cask ${fonts[@]}
 
 # Remove outdated versions from the cellar.
 brew cleanup
