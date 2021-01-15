@@ -1,5 +1,5 @@
 [user]
-        name = Matt Searles
-        email = matt@searles.com
+    name = Matt Searles
+    email = matt@searles.com
 [credential]
-        helper = osxkeychain
+    helper = osxkeychain

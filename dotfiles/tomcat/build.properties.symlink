@@ -1,0 +1,5 @@
+catalina.home=$CATALINA_HOME
+catalina.hostname=localhost
+catalina.port=8080
+
+maven.home=/usr/local/opt/maven@3.2/libexec
