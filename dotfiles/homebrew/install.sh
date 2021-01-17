@@ -55,6 +55,7 @@ qt
 rbenv
 screen
 ssh-copy-id
+svn
 telnet
 tomcat@8
 tree
@@ -64,6 +65,8 @@ z
 zlib)
 
 brew install ${formulas[@]}
+
+brew tap homebrew/cask-drivers
 
 #ask for sudo password upfront
 sudo -v
@@ -92,16 +95,15 @@ skype
 spectacle
 slack
 springtoolsuite
+sonos
 sublime-text
 textmate
 tibco-jaspersoft-studio
 vlc
 vagrant
 vagrant-manager
-virtualbox
-virtualbox-extension-pack
 whatsapp
-zoomus
+zoom
 )
 
 echo "installing apps..."
