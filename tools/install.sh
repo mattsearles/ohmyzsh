@@ -224,7 +224,7 @@ setup_shell() {
 }
 
 setup_gitconfig () {
-  if ! [ -f git/gitconfig.local.symlink ]
+  if ! [ -f $ZSH/dotfiles/git/gitconfig.local.symlink ]
   then
     echo 'setup gitconfig'
 
@@ -328,7 +328,7 @@ install_dotfiles () {
 
   local overwrite_all=false backup_all=false skip_all=false
 
-  for src in $(find -H "../dotfiles" -maxdepth 2 -name '*.symlink' -not -path '*.git*')
+  for src in $(find -H "../dotfiles" -maxdepth 2 -name '*.symlink' -not -path '*.git*' | sed "s|^\../||")
   do
     dst="$HOME/.$(basename "${src%.*}")"
     link_file "$ZSH/$src" "$dst"
